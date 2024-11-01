@@ -100,11 +100,13 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = False  # Change to False for production
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://*.vercel.app",  
+    "https://firstbank-investments.vercel.app",  # Make sure this exact domain is listed
     "https://firstbank-investsmart-fb01b73cbf8c.herokuapp.com"
 ]
 
-ALLOWED_HOSTS = ['firstbank-investsmart-fb01b73cbf8c.herokuapp.com']
+ALLOWED_HOSTS = ['firstbank-investsmart-fb01b73cbf8c.herokuapp.com',
+                     'firstbank-investments.vercel.app'
+                ]
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
