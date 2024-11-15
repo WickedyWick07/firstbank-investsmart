@@ -134,9 +134,12 @@ CORS_ALLOW_HEADERS = [
     "access-control-allow-origin",
 ]
 
+import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')  # Keep this for Heroku
+    'default': dj_database_url.config(
+        default='postgresql://firstbank_backend_user:JCifURLx6v2M50mEslbr9lTwwTRLcwPR@dpg-csrfckl6l47c73fdqtfg-a/firstbank_backend'
+    )
 }
 
 # Static files (CSS, JavaScript, Images)
