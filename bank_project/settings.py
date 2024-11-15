@@ -134,13 +134,19 @@ CORS_ALLOW_HEADERS = [
     "access-control-allow-origin",
 ]
 
-import dj_database_url
+from decouple import config
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://firstbank_backend_user:JCifURLx6v2M50mEslbr9lTwwTRLcwPR@dpg-csrfckl6l47c73fdqtfg-a/firstbank_backend'
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', default='5432'),
+    }
 }
+
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
