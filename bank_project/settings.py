@@ -100,11 +100,16 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = False  # Change to False for production
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://firstbank-investments.vercel.app",  # Make sure this exact domain is listed
-    "https://firstbank-investsmart-fb01b73cbf8c.herokuapp.com"
+    "https://firstbank-investments.vercel.app",
+    "https://firstbank-investsmart.onrender.com",  # New Render domain
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://firstbank-investments.vercel.app",
+    "https://firstbank-investsmart.onrender.com",  # New Render domain
 ]
 
-ALLOWED_HOSTS = ['firstbank-investsmart-fb01b73cbf8c.herokuapp.com',
+
+ALLOWED_HOSTS = ['firstbank-investsmart.onrender.com', 
                      'firstbank-investments.vercel.app'
                 ]
 CORS_ALLOW_METHODS = [
@@ -129,10 +134,7 @@ CORS_ALLOW_HEADERS = [
     "access-control-allow-origin",
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://firstbank-investments.vercel.app",
-    "https://firstbank-investsmart-fb01b73cbf8c.herokuapp.com"
-]
+
 DATABASES = {
     'default': dj_database_url.config(default='sqlite:///db.sqlite3')  # Keep this for Heroku
 }
