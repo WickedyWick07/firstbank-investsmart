@@ -136,31 +136,26 @@ CORS_ALLOW_HEADERS = [
 
 from decouple import config
 # Add these at the top of your settings.py
-from urllib.parse import urlparse, unquote
+# Add these at the top of your settings.py
 import os
 from dotenv import load_dotenv
+from urllib.parse import urlparse
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-tmpPostgres = urlparse(DATABASE_URL)
+# Replace the DATABASES section of your settings.py with this
+tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': unquote(tmpPostgres.path.lstrip('/')),  # Ensure proper decoding
-        'USER': unquote(tmpPostgres.username),  # Decode username
+        'NAME': tmpPostgres.path.replace('/', ''),
+        'USER': tmpPostgres.username,
         'PASSWORD': tmpPostgres.password,
         'HOST': tmpPostgres.hostname,
-        'PORT': tmpPostgres.port or 5432,  # Set default port if missing
-        'OPTIONS': {
-            'sslmode': 'require',  # Ensure SSL is enforced
-        },
+        'PORT': 5432,
     }
-}
-
-
-# Static files (CSS, JavaScript, Images)
+}# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ensure this is a valid path
 
