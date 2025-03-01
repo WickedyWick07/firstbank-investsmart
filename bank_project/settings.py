@@ -139,21 +139,22 @@ from decouple import config
 # Add these at the top of your settings.py
 import os
 from dotenv import load_dotenv
-from urllib.parse import urlparse
-
+from urllib.parse import urlparse, unquote
 load_dotenv()
 
-# Replace the DATABASES section of your settings.py with this
-tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-
+# Parse database URL properly
+db_url = urlparse(os.getenv("DATABASE_URL"))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': tmpPostgres.path.replace('/', ''),
-        'USER': tmpPostgres.username,
-        'PASSWORD': tmpPostgres.password,
-        'HOST': tmpPostgres.hostname,
-        'PORT': 5432,
+        'NAME': unquote(db_url.path[1:]),  # Remove leading slash and decode
+        'USER': unquote(db_url.username),  # Decode username
+        'PASSWORD': db_url.password,
+        'HOST': db_url.hostname,
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        }
     }
 }# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
